@@ -1,0 +1,12 @@
+    # Eclipse project files
+    .classpath
+    .project
+    .settings/
+
+    # Compiled output
+    bin/
+    target/
+    *.class
+
+    # IDE-specific files
+    .metadata/
