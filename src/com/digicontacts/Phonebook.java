@@ -2,6 +2,7 @@ package com.digicontacts;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
 
 public class Phonebook {
 	private ArrayList<PhoneBookEntry> contacts;
@@ -86,6 +87,31 @@ public class Phonebook {
 		}
 		if(!found) {
 			System.out.println("No contact found with that name");
+		}
+	}
+	
+	public void saveToFile(String filename) {
+		try (FileWriter writer = new FileWriter(filename)){
+			for (PhoneBookEntry phoneBookEntry : contacts) {
+				writer.write(phoneBookEntry.getName() + ", " + phoneBookEntry.getPhoneNumber() +", " + phoneBookEntry.getEmail() + "\n");
+			}
+		} catch (Exception e) {
+			System.out.println("Error saving to file: "+e.getMessage());
+		}
+	}
+	
+	public void loadFromFile(String filename) {
+		try(Scanner filescanner = new Scanner(new File(filename))) {
+			while (filescanner.hasNextLine()) {
+				String line =  filescanner.nextLine();
+				String[] parts = line.split(",");
+				if (parts.length==3) {
+					PhoneBookEntry phoneBookEntry = new PhoneBookEntry(parts[0], parts[1], parts[2]);
+					contacts.add(phoneBookEntry);
+				}
+			}
+		} catch (Exception e) {
+			
 		}
 	}
 }

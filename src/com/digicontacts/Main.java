@@ -9,7 +9,11 @@ public class Main {
 //		System.out.println("Welcome to DigiContacts!");
 		Scanner scanner = new Scanner(System.in);
 		Phonebook phoneBook = new Phonebook();
-
+		
+		String filePath = "contactlist.txt";
+		phoneBook.loadFromFile(filePath);
+		
+		
 		while (true) {
 			System.out.println("\n****PhoneBook Menu****");
 			System.out.println("1. Add Contact");
@@ -37,6 +41,7 @@ public class Main {
 
 				PhoneBookEntry entry = new PhoneBookEntry(personName, phoneNumber, emailId);
 				phoneBook.addContact(entry);
+				phoneBook.saveToFile(filePath);
 				break;
 
 			case 2:
@@ -54,17 +59,21 @@ public class Main {
 				System.out.println("Enter the name to edit: ");
 				String nameToEdit = scanner.nextLine();
 				phoneBook.editContactByName(nameToEdit, scanner);
+				phoneBook.saveToFile(filePath);
 				break;
 			case 5:
 				System.out.println("Enter name to delete.");
 				String deleteName = scanner.nextLine();
 				phoneBook.deleteContact(deleteName);
+				phoneBook.saveToFile(filePath);
 				break;
 				
 			case 6:
 				System.out.println("Exiting DigiContacts. Goodbye!");
 				scanner.close();
 				System.exit(0);
+				
+				
 
 			default:
 				System.out.println("Invalid option. Please try again.");
